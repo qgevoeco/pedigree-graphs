@@ -1,5 +1,5 @@
 # pedigree-graphs
-Collection of code for applying graph theory to population pedigrees
+Apply graph theory to population pedigrees.
 
 # License
 
