@@ -64,20 +64,28 @@ varEdgeCon <- function(graph, mean = avgEdgeCon(graph), sum = 0)
   return(varCon)
 }
 
+
+
 #returns the average reproductive success of a pedigree graph
-avgRepSucs <- function(graph, sum = 0, count = 0)
+avgRepSucs <- function(graph, nodes = NULL)
 {
-  for (i in 1:vcount(graph))
-  {
-    degV <- degree(graph, v = i, mode = "out", loops = FALSE)
-    if (degV == 0)
-    {
-      next
-    }
-    
-    sum <- sum + degV
-    count <- count + 1
-  }
+  if(is.null(nodes)) nodes <- seq.int(1, vcount(graph), 1) 
   
-  return(sum / count)
+  sm <- sapply(nodes, FUN = degree,
+    graph = graph, mode = "out", loops = FALSE, normalized = FALSE)
+  
+  return(sum(sm) / length(nodes))
 }
+# example
+## library(nadiv)
+## library(igraph)
+## g <- pedToGraph(FG90, attributes = "sex")
+## ## calculate across all nodes in g
+## avgRepSucs(g)
+## ## only calculate over first 3 generations of pedigree
+## gen <- genAssign(FG90)
+## inclNodes <- match(FG90[gen < 3, 1], vertex_attr(g, name = "name"))
+## avgRepSucs(g, nodes = inclNodes)
+
+
+
