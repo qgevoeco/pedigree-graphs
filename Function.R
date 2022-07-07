@@ -1,6 +1,3 @@
-library("igraph")
-library("nadiv")
-
 #Transform a given pedigree into a graph
 pedToGraph <- function(pedigree)
 {
