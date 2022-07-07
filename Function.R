@@ -27,19 +27,26 @@ pedToGraph <- function(pedigree, attributes = NULL)
 
 
 #return the average connectivity of a graph
-avgEdgeCon <- function(graph, sum = 0)
+avgEdgeCon <- function(graph)
 {
-  for (i in 1:(vcount(graph)-1))
-  {
-    for (j in (i+1):vcount(graph))
-    {
-      sum = sum + edge_connectivity(graph, source = i, target = j)
-    }
+  vcnt <- vcount(graph)
+  for (i in 1:(vcnt-1))
+  { 
+    sm <- sum(sapply(seq.int(i + 1, vcnt, 1), FUN = edge_connectivity,
+      graph = graph, source = i, checks = TRUE))
   }
   
-  avgCon = sum / choose(vcount(graph), 2)
+  avgCon = sm / choose(vcnt, 2)
   return(avgCon)
 }
+# example
+## library(nadiv)
+## library(igraph)
+## g <- pedToGraph(FG90, attributes = "sex")
+## avgEdgeCon(g)
+
+
+
 
 #return the variance of the connectivity of a graph
 varEdgeCon <- function(graph, mean = avgEdgeCon(graph), sum = 0)
