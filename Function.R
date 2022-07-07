@@ -36,7 +36,7 @@ avgEdgeCon <- function(graph)
       graph = graph, source = i, checks = TRUE))
   }
   
-  avgCon = sm / choose(vcnt, 2)
+  avgCon <- sm / choose(vcnt, 2)
   return(avgCon)
 }
 # example
@@ -55,12 +55,12 @@ varEdgeCon <- function(graph, mean = avgEdgeCon(graph), sum = 0)
   {
     for (j in (i+1):vcount(graph))
     {
-      sum = sum + (edge_connectivity(graph, source = i, target = j)
+      sum <- sum + (edge_connectivity(graph, source = i, target = j)
                    - mean)**2
     }
   }
   
-  varCon = sum / (choose(vcount(graph), 2) - 1)
+  varCon <- sum / (choose(vcount(graph), 2) - 1)
   return(varCon)
 }
 
@@ -75,8 +75,8 @@ avgRepSucs <- function(graph, sum = 0, count = 0)
       next
     }
     
-    sum = sum + degV
-    count = count + 1
+    sum <- sum + degV
+    count <- count + 1
   }
   
   return(sum / count)
